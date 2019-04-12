@@ -2,7 +2,9 @@
 #import os
 #print(os.getcwd())
 #workdir: /home/peluzio/Documentos/Mestrado Data Mining/data-mining-de-a-z
-
+#workdir: C:\Users\hga\data-mining\data-mining-de-a-z
+import os
+os.chdir('C:\Users\hga\data-mining\data-mining-de-a-z')
 import pandas as pd
 base = pd.read_csv('credit_data.csv')
 
@@ -49,18 +51,36 @@ base.loc[base.age < 0, 'age'] = 40.92
 pd.isnull(base['age'])              #Verificando valores nulos
 base.loc[pd.isnull(base['age'])]    #Verificando simplificado
 
+#%%#
 #Pegando apenas colunas dos previdores
 #income, age, loan
 previsores = base.iloc[:, 1:4].values
 classe = base.iloc[:, 4].values
 
+#%%# DEPRECATED
 #Biblioteca para preprocessar os dados nulos
-from sklearn.impute import SimpleImputer
-imputer = SimpleImputer(missing_values='NaN', strategy='mean', axis=0)
-imputer = SimpleImputer.fit(previsores[:, 0:3])
-previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
+#from sklearn.preprocessing import Imputer
+#imputer = Imputer(missing_values='NaN', strategy='mean', axis=0)
+#imputer = Imputer.fit(previsores[:, 0:3])
+#previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
 
+#%%#  Imputer esta deprecated, entao a gente usou esse aqui
+#Biblioteca para preprocessar os dados nulos
+import numpy as np
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values = np.nan, strategy = 'mean')
+imputer = imputer.fit(previsores[:, 0:3])
+previsores[:, 0:3] = imputer.transform(previsores[:, 0:3])
+#%%# Aprendendo usar loc iloc
+previsores
+#previsores.iloc[previsores[0] = 'NaN'].values
 #%%#
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+previsores = scaler.fit_transform(previsores)
+
+
+
 
 
 
