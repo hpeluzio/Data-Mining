@@ -1,0 +1,4 @@
+Credit Data
+--------------------------
+0.9379 - Nayve Bayes (Inconsistentes + faltantes +escalonamento)
+0.982  - Arvore Decisao (Inconsistentes + faltantes +escalonamento)
